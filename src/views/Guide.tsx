@@ -10,7 +10,7 @@
 import type { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const ISSUES_URL = "https://github.com/skylarkning/HangTime/issues/new/choose";
+const ISSUES_URL = "https://github.com/mozilla/HangTime/issues/new/choose";
 
 const SECTIONS: { id: string; title: string }[] = [
   { id: "about", title: "What is HangTime?" },

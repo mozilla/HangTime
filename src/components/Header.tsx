@@ -16,7 +16,7 @@ const TABS: Tab[] = [
   { id: "guide", label: "Guide", to: "/guide" },
 ];
 
-const FEEDBACK_URL = "https://github.com/skylarkning/HangTime/issues";
+const FEEDBACK_URL = "https://github.com/mozilla/HangTime/issues";
 
 interface HeaderProps {
   thread: string;
