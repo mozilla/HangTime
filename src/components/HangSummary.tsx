@@ -6,7 +6,7 @@
  * frame in the stack below.
  */
 
-import { useId, useState } from "react";
+import { useId, useState, type ReactNode } from "react";
 import type { Frame, HangSignature } from "@/processing/types";
 import {
   MECHANISMS,
@@ -27,9 +27,10 @@ interface HangSummaryProps {
   /** Scroll the stack to a frame and flash it. */
   onJump: (depth: number) => void;
   contextAvailable?: boolean;
+  action?: ReactNode;
 }
 
-export function HangSummary({ signature, frames, onJump, contextAvailable = true }: HangSummaryProps) {
+export function HangSummary({ signature, frames, onJump, contextAvailable = true, action }: HangSummaryProps) {
   const [expanded, setExpanded] = useState(false);
   const evidenceId = useId();
   const { kind } = signature;
@@ -56,6 +57,7 @@ export function HangSummary({ signature, frames, onJump, contextAvailable = true
 
   return (
     <div className="detail-section hang-summary" data-section="Summary">
+      <div className="summary-heading">
       <h3>
         Summary
         <InfoTip label="Summary">
@@ -71,6 +73,8 @@ export function HangSummary({ signature, frames, onJump, contextAvailable = true
           </span>
         </InfoTip>
       </h3>
+      {action}
+      </div>
       <p className={`summary-title${signature.knownBug ? " summary-bug-title" : ""}`}>
         {signature.knownBug ? <a href={`https://bugzilla.mozilla.org/show_bug.cgi?id=${signature.knownBug.id}`} target="_blank" rel="noreferrer">
           Bug {signature.knownBug.id}: {signature.knownBug.summary}
