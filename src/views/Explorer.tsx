@@ -44,7 +44,7 @@ export function Explorer() {
 
   const metric: Metric = state.sort === "count" ? "count" : "ms";
 
-  const trendById = useTrendById(query.data, timeseries.data, metric);
+  const trendById = useTrendById(query.data, timeseries.data, metric, bugs.data);
 
   // The near-duplicate group the list is narrowed to, if any. The list then
   // shows the group's stacks one by one (GroupMemberTable) instead of rows.

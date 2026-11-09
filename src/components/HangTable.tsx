@@ -110,8 +110,11 @@ export function HangTable({
               at least 5 days of data, enough hangs to mean something, and the
               typical day moved too, not just one spike:{" "}
               <code>↑</code> an increase, <code>↓</code> a decrease.{" "}
-              <code>newly tracked</code> = absent before, real volume now.
+              <code>newly tracked</code> = no earlier recorded activity, real volume now.
+              {" "}<code>tracked again</code> = activity returns after a tracking gap.
               <span className="eg">
+                Trends describe the stored historical subset of stacks; a bug’s
+                full daily total can include additional untracked stacks.{" "}
                 Otherwise the badge says what’s missing: <code>partial 1/7d</code>{" "}
                 (too few days observed), <code>no baseline</code>,{" "}
                 <code>no recent data</code>, <code>below cut</code> (recorded days

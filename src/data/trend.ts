@@ -20,8 +20,9 @@
  *  - % change compares the 7 days ending at the build in view with the 7 days
  *    before, not today vs yesterday (single days are too noisy), and not the
  *    latest window when an older build is on screen.
- *  - "newly tracked" needs meaningful recent volume AND an absent or near-zero
- *    baseline, so a single stray hang on one day does not flag as new.
+ *  - "newly tracked" needs meaningful recent volume, an absent or near-zero
+ *    baseline, and no activity in earlier history. A tracking gap or a large
+ *    increase in a longstanding hang must not make that hang look new.
  */
 
 import type { Metric, ResolvedSeries } from "./timeseries";
@@ -39,6 +40,8 @@ export type TrendTone = "red" | "amber" | "green" | "blue" | "neutral";
  *    the typical (median) day didn't move with them.
  *  - `newly-tracked`: absent (or ~zero) through a covered baseline, meaningful
  *    volume now. It may have existed below the tracking cut before.
+ *  - `tracked-again`: meaningful volume after a tracking gap or zero baseline,
+ *    with activity already recorded earlier in the history window.
  *  - `baseline-unavailable`: the baseline days have no data for anyone, so
  *    there is nothing to compare against.
  *  - `incomplete`: too few observed days in one window to compare.
@@ -54,11 +57,13 @@ export type TrendState =
   | "low-volume"
   | "spike"
   | "newly-tracked"
+  | "tracked-again"
   | "baseline-unavailable"
   | "incomplete"
   | "no-recent-data"
   | "below-cut"
-  | "outside-window";
+  | "outside-window"
+  | "current-build-unmatched";
 
 /** Trend buckets the hang list can be filtered to. */
 export type TrendCategory = "increase" | "decrease" | "new" | "other";
@@ -187,6 +192,7 @@ const meaningful = (w: WindowEvidence) =>
 function classify(
   recent: WindowEvidence,
   baseline: WindowEvidence,
+  previouslyTracked: boolean,
 ): { state: TrendState; changePct: number | null } {
   if (recent.observed === 0) {
     return { state: recent.belowCut > 0 ? "below-cut" : "no-recent-data", changePct: null };
@@ -209,7 +215,14 @@ function classify(
     baseline.count < NEW_BASELINE_MAX_COUNT ||
     (baseline.median ?? 0) < 0.05 * (recent.median ?? 0);
   if (absentBefore && recentCovered && meaningful(recent)) {
-    return { state: "newly-tracked", changePct: null };
+    if (!previouslyTracked) {
+      return { state: "newly-tracked", changePct: null };
+    }
+    if (baseline.observed < MIN_OBSERVED_DAYS || baseline.avg === 0) {
+      return { state: "tracked-again", changePct: null };
+    }
+    // A small but measured baseline is still a baseline. Compare it normally
+    // rather than call a longstanding hang new because its volume rose 20x.
   }
   if (!recentCovered || baseline.observed < MIN_OBSERVED_DAYS) {
     return { state: "incomplete", changePct: null };
@@ -253,8 +266,9 @@ export function computeTrend(
   const primary = metric === "ms" ? series.total.ms : series.total.count;
   const n = primary.length;
 
-  let peakIndex = 0;
-  for (let i = 1; i < n; i++) {
+  const endIndex = endDate === undefined ? n - 1 : series.dates.indexOf(endDate);
+  let peakIndex = -1;
+  for (let i = 0; i <= endIndex; i++) {
     const value = primary[i];
     const best = primary[peakIndex];
     if (value != null && (best == null || value > best)) {
@@ -262,12 +276,11 @@ export function computeTrend(
     }
   }
   const peak = {
-    peakDate: series.dates[peakIndex],
+    peakDate: series.dates[peakIndex] ?? "",
     peakValue: primary[peakIndex] ?? null,
     trackedStacks: series.members.length,
   };
 
-  const endIndex = endDate === undefined ? n - 1 : series.dates.indexOf(endDate);
   const recent = windowEvidence(series, primary, endIndex - WINDOW_DAYS + 1, endIndex);
   const baseline = windowEvidence(
     series,
@@ -289,7 +302,16 @@ export function computeTrend(
     };
   }
 
-  const { state, changePct } = classify(recent, baseline);
+  // Apply the same evidence requirements to every hang, with or without a
+  // Bugzilla association. A week containing earlier observations cannot
+  // establish a current trend when the viewed build has no comparable sample.
+  const currentUnmatched = series.coverage?.stacks === 0 ||
+    (recent.observed > 0 && primary[endIndex] == null);
+  const previouslyTracked = series.total.count.some((count, i) =>
+    i < endIndex - WINDOW_DAYS + 1 && ((count ?? 0) > 0 || (series.total.ms[i] ?? 0) > 0),
+  );
+  const { state, changePct }: {state: TrendState; changePct: number | null} = currentUnmatched
+    ? {state: "current-build-unmatched", changePct: null} : classify(recent, baseline, previouslyTracked);
   // Only where the windows were compared at all: a delta off one observed day
   // would read as a measurement it isn't.
   const deltaPerDay =
@@ -355,6 +377,8 @@ export function trendBadge(trend: TrendSummary): { text: string; tone: TrendTone
       return { text: "spike", tone: (trend.changePct ?? 0) > 0 ? "amber" : "neutral" };
     case "newly-tracked":
       return { text: "newly tracked", tone: "blue" };
+    case "tracked-again":
+      return { text: "tracked again", tone: "neutral" };
     case "baseline-unavailable":
       return { text: "no baseline", tone: "neutral" };
     case "incomplete": {
@@ -368,6 +392,8 @@ export function trendBadge(trend: TrendSummary): { text: string; tone: TrendTone
       return { text: "below cut", tone: "neutral" };
     case "outside-window":
       return { text: "no history", tone: "neutral" };
+    case "current-build-unmatched":
+      return { text: "history only", tone: "neutral" };
   }
 }
 
@@ -402,13 +428,17 @@ export function trendHeadline(trend: TrendSummary): string {
         ? `Newly tracked since ${shortDate(trend.newSince)}`
         : "Newly tracked";
     case "baseline-unavailable":
-      return "Newly observed, baseline unavailable";
+      return "Baseline unavailable";
+    case "tracked-again":
+      return "Tracked again; activity exists in earlier history";
     case "incomplete":
       return "Incomplete comparison";
     case "no-recent-data":
       return "No recent data";
     case "below-cut":
       return "Below the tracking cut lately";
+    case "current-build-unmatched":
+      return "Historical data available; this build has no comparable tracked sample";
     case "outside-window":
       return "Build outside the history window";
   }
