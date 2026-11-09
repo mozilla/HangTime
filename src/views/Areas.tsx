@@ -39,7 +39,7 @@ export function Areas() {
   const query = useProcessedProfile(state.thread as ThreadKind, state.date);
   const timeseries = useTimeseries(state.thread as ThreadKind);
   const bugs = useBugs();
-  const trendById = useTrendById(query.data, timeseries.data, "ms");
+  const trendById = useTrendById(query.data, timeseries.data, "ms", bugs.data);
   const platform = state.platform;
 
   // On one platform, every number is that platform's share of each hang.

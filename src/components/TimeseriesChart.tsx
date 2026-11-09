@@ -227,9 +227,9 @@ export function TimeseriesChart({ index, signature, endDate }: TimeseriesChartPr
   const [metric, setMetric] = useState<Metric>("ms");
   const [showAll, setShowAll] = useState(false);
   const [showReleases, setShowReleases] = useState(false);
-  const { range, setRange, reset } = useChartRange(
-    index?.dates.length ?? 0, 30, endDate ? index?.dates.indexOf(endDate) : undefined,
-  );
+  // A build that is absent from the history must not fall back to future dates.
+  const availableDays = index?.dates.filter(date => date <= endDate).length ?? 0;
+  const { range, setRange, reset } = useChartRange(availableDays, 30);
   const { chartRef, dragProps, marquee } = useDragZoom(range, setRange);
   const { scrollRef, minWidth } = useDailyChartWidth(range.end - range.start + 1);
 
@@ -251,6 +251,11 @@ export function TimeseriesChart({ index, signature, endDate }: TimeseriesChartPr
         </p>
       </div>
     );
+  }
+
+  if (availableDays === 0) {
+    return <div className="detail-section" data-section="History"><h3>History</h3>
+      <p className="muted">No history is available at or before the selected build.</p></div>;
   }
 
   const showMembers = series.members.length > 1;
@@ -496,7 +501,9 @@ export function TimeseriesChart({ index, signature, endDate }: TimeseriesChartPr
             the 7 days ending on this build with the 7 before, and say how many
             days of each this hang was actually recorded on.
             <span className="eg">
-              The history is joined by the shape of each stack, ignoring names a
+              For a tagged bug, history includes the stored stacks matching its
+              current Bugzilla tags, independently of the viewed build’s stacks.
+              For other hangs, history is joined by stack shape, ignoring names a
               build can change without changing the code path (a renumbered
               lambda, a moved line in a JS file), so a hang keeps its history
               across those builds.
@@ -524,7 +531,7 @@ export function TimeseriesChart({ index, signature, endDate }: TimeseriesChartPr
         </h3>
         <div className="chart-tools">
           <ChartRangeControls
-            length={series.dates.length}
+            length={availableDays}
             range={range}
             onChange={setRange}
             onReset={reset}
@@ -628,13 +635,13 @@ export function TimeseriesChart({ index, signature, endDate }: TimeseriesChartPr
 
 /**
  * What the bars do and don't include, said up front: a bug folds in many
- * stacks and the history keeps only the top tracked ones, and the build on
- * screen may have been filled in from its own data.
+ * stacks and the history keeps only the top tracked ones. Current-build
+ * overlap is reported separately from the historical bug cohort.
  */
 function HistoryNotes({ series }: { series: ResolvedSeries }) {
-  const { coverage, filledDate } = series;
+  const { coverage, filledDate, association } = series;
   const partial = coverage.share < 0.95;
-  if (!partial && !filledDate) {
+  if (!partial && !filledDate && !association) {
     return null;
   }
   const pct = coverage.share.toLocaleString(undefined, {
@@ -643,12 +650,27 @@ function HistoryNotes({ series }: { series: ResolvedSeries }) {
   });
   return (
     <div className="ts-notes">
+      {association && <p>
+        History for Bug {association.bugId} · {association.stacks} stored stacks
+        <InfoTip label="Historical bug association">
+          Historical stacks are matched using this bug’s current Bugzilla tags,
+          independently of which stacks appear on the viewed build.
+          <p><code>{association.tags.join(" ")}</code></p>
+          <p>This is a tracked subset, not a complete bug total. The tags describe
+          today’s association, not a record of past bug ownership. Current-build
+          shape overlap is reported separately below.</p>
+        </InfoTip>
+      </p>}
+      {association && coverage.stacks === 0 && <p>
+        Historical data retained; this build has no matching stacks. Missing
+        values remain gaps, and no current trend is claimed.
+      </p>}
       {partial && (
         <p>
-          Follows {coverage.stacks.toLocaleString()} of this hang&rsquo;s{" "}
+          Current-build overlap: {coverage.stacks.toLocaleString()} of this hang&rsquo;s{" "}
           {coverage.totalStacks.toLocaleString()} stacks, {pct} of its time on this
-          build. The history keeps only the top tracked stacks, so every day counts
-          those stacks alone.
+          build. History includes only the stacks retained by the publisher;
+          coverage can vary between builds.
         </p>
       )}
       {filledDate && (

@@ -466,12 +466,17 @@ export function Guide() {
               matches them to the build on screen by the shape of each stack: names
               a build changes without changing the code path (a renumbered lambda, a
               moved line in a JS file) are ignored, so a hang keeps its history from
-              one build to the next. A note under the chips says when the history
-              follows only part of a hang (a bug folds in many stacks, and only the
-              tracked ones are counted on every day), and when the build on
-              screen&rsquo;s own bar came from its own data because the history
-              hasn&rsquo;t recorded its renamed stacks yet. A hang none of whose
-              stacks is tracked has no history.
+              one build to the next. A note reports how much of this build’s hang
+              time overlaps the stored history. Missing historical values remain
+              gaps; selecting a build never substitutes its daily totals into a
+              historical bar. A hang none of whose
+              stacks is tracked has no stack history. For a tracked Bugzilla issue,
+              History instead selects stored stacks using its current [bhr:] tags,
+              independently of the stacks appearing on the viewed build. Earlier
+              history remains visible even with zero current overlap. Such a build
+              says “history only”; its missing sample is not zero and has no trend
+              claim. Tag association is reconstructed from today’s rules, not a
+              historical bug-ownership record.
             </Item>
             <Item name="Near-duplicate group">
               Stacks that share a meaningful frame can be related even when their
@@ -657,9 +662,13 @@ export function Guide() {
               <tr>
                 <td><span className="trend-badge blue">newly tracked</span></td>
                 <td>
-                  Absent (or barely seen) through a recorded previous week, real
-                  volume now. It may have been there below the cut before.
+                  No activity in earlier recorded history, real volume now.
+                  It may have existed below the tracking cut before.
                 </td>
+              </tr>
+              <tr>
+                <td><span className="trend-badge neutral">tracked again</span></td>
+                <td>Activity exists in older history and returns after a tracking gap or zero baseline.</td>
               </tr>
               <tr>
                 <td><span className="trend-badge neutral">partial 1/7d</span></td>

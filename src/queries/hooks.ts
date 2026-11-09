@@ -185,12 +185,14 @@ export function useTrendById(
   profile: ProcessedProfile | undefined,
   index: TimeseriesIndex | undefined,
   metric: Metric,
+  bugs?: BugMap,
 ): Map<string, TrendSummary | null> {
   return useMemo(() => {
     const map = new Map<string, TrendSummary | null>();
     if (!profile) {
       return map;
     }
+    index?.setBugs(bugs);
     index?.bind(profile);
     const endDate = profile.date;
     for (const sig of profile.signatures) {
@@ -198,5 +200,5 @@ export function useTrendById(
       map.set(sig.id, series ? computeTrend(series, metric, { endDate }) : null);
     }
     return map;
-  }, [profile, index, metric]);
+  }, [profile, index, metric, bugs]);
 }

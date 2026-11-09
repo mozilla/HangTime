@@ -12,7 +12,7 @@ import {
   shapeKeyFromFrames,
   shapeName,
 } from "@/processing/signatureKey";
-import type { HangSignature, ProcessedProfile } from "@/processing/types";
+import type { HangSignature, KnownBug, ProcessedProfile } from "@/processing/types";
 import type { ThreadKind } from "./dataSource";
 
 const DATA_BASE = (import.meta.env.VITE_DATA_BASE as string | undefined) ?? "data";
@@ -112,6 +112,8 @@ export interface MemberSeries {
 /** Resolved series for a (possibly bug-merged) signature. */
 export interface ResolvedSeries {
   dates: string[];
+  /** Bug-tag cohort persists independently of which stacks appear on the viewed build. */
+  association?: { bugId: number; tags: string[]; stacks: number };
   /**
    * Element-wise sum across all present members. `affected` is present only
    * when the artifact carried client metrics; for a bug-merged signature it is
@@ -140,11 +142,7 @@ export interface ResolvedSeries {
    * top few hundred, so its days are often a partial sum.
    */
   coverage: { stacks: number; totalStacks: number; share: number };
-  /**
-   * The build's own day, when it was filled in from the build itself: the
-   * history recorded these stacks under their names in earlier builds, and
-   * hasn't yet tracked this build's renamed ones.
-   */
+  /** Legacy fill metadata; published-only history resolution leaves this null. */
   filledDate: string | null;
 }
 
@@ -166,6 +164,9 @@ export class TimeseriesIndex {
   /** Compact stack key -> shape, for stacks whose shape this index tracks. */
   private shapeByStack = new Map<string, string>();
   private boundTo: ProcessedProfile | null = null;
+  private bugRules: Map<string, KnownBug> | undefined;
+  private readonly historyByBug = new Map<number, TimeseriesSignature[]>();
+  private readonly shapesByBug = new Map<number, Set<string>>();
 
   constructor(artifact: TimeseriesArtifact) {
     this.dates = artifact.dates;
@@ -192,6 +193,32 @@ export class TimeseriesIndex {
     }
     for (const group of this.byShape.values()) {
       group.sort((a, b) => b.totalMs - a.totalMs);
+    }
+  }
+
+  /** Apply the same literal tags, first match within the innermost frame, as
+   * daily bug merging. This cohort depends on bug identity, not today's stacks. */
+  setBugs(bugs: Map<string, KnownBug> | undefined): void {
+    if (bugs === this.bugRules) return;
+    this.bugRules = bugs;
+    this.historyByBug.clear();
+    this.shapesByBug.clear();
+    if (!bugs?.size) return;
+    const escape = (s: string) => s.replace(/[[\]{}()*+?.\\^$|]/g, "\\$&");
+    const pattern = [...bugs.keys()].map(escape).join("|");
+    if (!pattern) return;
+    const matcher = new RegExp(pattern);
+    for (const [shape, group] of this.byShape) for (const sig of group) {
+      for (const [name] of sig.frames) {
+        const match = name.match(matcher);
+        const bug = match ? bugs.get(match[0]) : undefined;
+        if (!bug) continue;
+        const cohort = this.historyByBug.get(bug.id) ?? [];
+        cohort.push(sig); this.historyByBug.set(bug.id, cohort);
+        const shapes = this.shapesByBug.get(bug.id) ?? new Set<string>();
+        shapes.add(shape); this.shapesByBug.set(bug.id, shapes);
+        break;
+      }
     }
   }
 
@@ -240,12 +267,16 @@ export class TimeseriesIndex {
   /** Current-build coverage without constructing hundreds of historical day arrays. */
   coverageForSignature(signature: HangSignature): ResolvedSeries["coverage"] {
     const stacks = memberStackTotals(signature);
+    const trackedShapes = signature.knownBug && this.bugRules
+      ? this.shapesByBug.get(signature.knownBug.id) ?? new Set<string>()
+      : this.byShape;
     let totalMs = 0;
     let coveredMs = 0;
     let coveredStacks = 0;
     for (const stack of stacks) {
       totalMs += stack.ms;
-      if (this.shapeByStack.has(stack.key)) {
+      const shape = this.shapeByStack.get(stack.key);
+      if (shape !== undefined && trackedShapes.has(shape)) {
         coveredMs += stack.ms;
         coveredStacks++;
       }
@@ -254,68 +285,40 @@ export class TimeseriesIndex {
   }
 
   /**
-   * A signature's daily series on the bound build, or null when none of its
-   * stacks is tracked. Requires `bind`.
+   * Select history independently of the viewed build for tagged bugs. Use the
+   * same cohort for hang totals, composition and affected-client metrics.
+   */
+  private trackedForSignature(signature: HangSignature): TimeseriesSignature[] {
+    if (signature.knownBug && this.bugRules) {
+      return this.historyByBug.get(signature.knownBug.id) ?? [];
+    }
+    const shapes = new Set<string>();
+    for (const key of signature.memberStackKeys ?? [signature.stackKey]) {
+      const shape = this.shapeByStack.get(key);
+      if (shape !== undefined) shapes.add(shape);
+    }
+    return [...shapes].flatMap((shape) => this.byShape.get(shape)!);
+  }
+
+  /**
+   * Resolve a bug's historical tag cohort, or an untagged stack's shape history.
+   * A bug's history survives zero overlap with the bound build. Requires `bind`
+   * and `setBugs` for bug association.
    *
-   * Every tracked signature sharing a member stack's shape contributes. A
-   * build has one name per code path, so on any day at most one of them has a
-   * value and summing them joins the history across renames rather than
-   * double counting. When none of a shape's tracked signatures has a value on
-   * the bound build's own day (the build renamed its stacks and the history
-   * hasn't caught up), that day is filled from the build itself: the same
-   * stacks' hang time, from the same per-build data the history is made of.
+   * Each exact stored stack contributes once. Never fill a missing historical
+   * value from the viewed daily profile: doing so makes a past bar change
+   * when selecting another build, and may mix a partial cohort with a full day.
    */
   resolveSignature(signature: HangSignature): ResolvedSeries | null {
-    const stacks = memberStackTotals(signature);
-    const day = this.boundTo ? this.dates.indexOf(this.boundTo.date) : -1;
-    const byShape = new Map<string, { ms: number; count: number }>();
-    let totalMs = 0;
-    let coveredMs = 0;
-    let coveredStacks = 0;
-    for (const stack of stacks) {
-      totalMs += stack.ms;
-      const shape = this.shapeByStack.get(stack.key);
-      if (shape === undefined) {
-        continue;
-      }
-      coveredStacks++;
-      coveredMs += stack.ms;
-      const own = byShape.get(shape) ?? { ms: 0, count: 0 };
-      own.ms += stack.ms;
-      own.count += stack.count;
-      byShape.set(shape, own);
-    }
-    if (byShape.size === 0) {
-      return null;
-    }
-
-    const members: MemberSeries[] = [];
-    let filled = false;
-    for (const [shape, own] of byShape) {
-      const group = this.byShape.get(shape)!;
-      const missing = day >= 0 && group.every((sig) => sig.ms[day] == null);
-      group.forEach((sig, i) => {
-        const member = memberSeries(sig);
-        if (missing && i === 0 && own.ms > 0) {
-          member.ms = [...member.ms];
-          member.count = [...member.count];
-          member.ms[day] = own.ms;
-          member.count[day] = own.count;
-          filled = true;
-        }
-        members.push(member);
-      });
-    }
-    members.sort((a, b) => b.totalMs - a.totalMs);
-
-    const present = [...byShape.keys()].flatMap((shape) => this.byShape.get(shape)!);
+    const present = this.trackedForSignature(signature);
+    if (present.length === 0) return null;
+    const associated = !!signature.knownBug && !!this.bugRules;
+    const members = present.map(memberSeries).sort((a, b) => b.totalMs - a.totalMs);
     const series = this.seriesFrom(members, present);
-    series.coverage = {
-      stacks: coveredStacks,
-      totalStacks: stacks.length,
-      share: totalMs > 0 ? coveredMs / totalMs : 1,
+    if (associated && signature.knownBug) series.association = {
+      bugId: signature.knownBug.id, tags: signature.knownBug.signatures, stacks: present.length,
     };
-    series.filledDate = filled ? this.dates[day] : null;
+    series.coverage = this.coverageForSignature(signature);
     return series;
   }
 
@@ -332,15 +335,7 @@ export class TimeseriesIndex {
     if (!this.totalUsers) {
       return null;
     }
-    const shapes = new Set<string>();
-    for (const key of signature.memberStackKeys ?? [signature.stackKey]) {
-      const shape = this.shapeByStack.get(key);
-      if (shape !== undefined) {
-        shapes.add(shape);
-      }
-    }
-    const present = [...shapes]
-      .flatMap((shape) => this.byShape.get(shape) ?? [])
+    const present = this.trackedForSignature(signature)
       .filter((sig) => !!sig.affectedUsers);
     if (present.length === 0) {
       return null;
@@ -385,7 +380,8 @@ export class TimeseriesIndex {
       count: sumDay(members.map((m) => m.count)),
     };
     total.affected = present.some((sig) => sig.affected)
-      ? sumDay(present.map((sig) => sig.affected))
+      ? this.dates.map((_, i) => present.every(sig => sig.affected?.[i] != null)
+          ? present.reduce((sum, sig) => sum + sig.affected![i]!, 0) : null)
       : undefined;
     return {
       dates: this.dates,

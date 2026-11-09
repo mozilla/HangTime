@@ -77,6 +77,7 @@ Other scripts:
 npm run build        # typecheck + production build to dist/
 npm run typecheck    # tsc only
 npm run verify       # real-browser smoke test (needs `npm run preview` running)
+npm run verify:history # offline history/trend regressions using production stacks
 ```
 
 `npm run verify` via `puppeteer-core` to load the built

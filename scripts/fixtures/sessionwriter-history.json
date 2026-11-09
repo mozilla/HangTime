@@ -1,0 +1,2239 @@
+{
+  "source": {
+    "description": "Public production data reduced to the six historical stacks matched by the deployed shape join and the contributing tracked stacks in each daily profile. Earlier history is clipped to the reported backfill boundary.",
+    "history": "https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/gecko.v2.mozilla-central.latest.firefox.bhr-aggregate/artifacts/public/bhr/hangs_timeseries_main.json",
+    "historyUuid": "942af5602f6a492e86325af442e77215",
+    "extractedOn": "2026-11-09"
+  },
+  "bug": {
+    "id": 1849393,
+    "status": "NEW",
+    "summary": "SessionWriter IOUtils.writeJSON serialization",
+    "signatures": [
+      "[bhr:SessionWriter]",
+      "[bhr:IOUtils_Binding::writeJSON]"
+    ]
+  },
+  "artifact": {
+    "uuid": "942af5602f6a492e86325af442e77215",
+    "windowStartDate": "20260820",
+    "windowEndDate": "20261105",
+    "topCount": 6,
+    "dates": [
+      "20260820",
+      "20260821",
+      "20260822",
+      "20260823",
+      "20260824",
+      "20260825",
+      "20260826",
+      "20260827",
+      "20260828",
+      "20260829",
+      "20260830",
+      "20260831",
+      "20260901",
+      "20260902",
+      "20260903",
+      "20260904",
+      "20260905",
+      "20260906",
+      "20260907",
+      "20260908",
+      "20260909",
+      "20260910",
+      "20260911",
+      "20260912",
+      "20260913",
+      "20260914",
+      "20260915",
+      "20260916",
+      "20260917",
+      "20260918",
+      "20260919",
+      "20260920",
+      "20260921",
+      "20260922",
+      "20260923",
+      "20260924",
+      "20260925",
+      "20260926",
+      "20260927",
+      "20260928",
+      "20260929",
+      "20260930",
+      "20261001",
+      "20261002",
+      "20261003",
+      "20261004",
+      "20261005",
+      "20261006",
+      "20261007",
+      "20261008",
+      "20261009",
+      "20261010",
+      "20261011",
+      "20261012",
+      "20261013",
+      "20261014",
+      "20261015",
+      "20261016",
+      "20261017",
+      "20261018",
+      "20261019",
+      "20261020",
+      "20261021",
+      "20261022",
+      "20261023",
+      "20261024",
+      "20261025",
+      "20261026",
+      "20261027",
+      "20261028",
+      "20261029",
+      "20261030",
+      "20261031",
+      "20261101",
+      "20261102",
+      "20261103",
+      "20261104",
+      "20261105"
+    ],
+    "signatures": [
+      {
+        "frames": [
+          [
+            "InfallibleQuoteJSONString(mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<char16_t>)",
+            "xul"
+          ],
+          [
+            "QuoteJSONStringHelper(JSLinearString const&, js::StringBuilder&, unsigned long long)",
+            "xul"
+          ],
+          [
+            "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+            "xul"
+          ],
+          [
+            "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+            "xul"
+          ],
+          [
+            "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+            "xul"
+          ],
+          [
+            "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+            "xul"
+          ],
+          [
+            "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject *>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long long)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON::<lambda_7>::operator()(mozilla::dom::Promise*, mozilla::DataMutexBase<mozilla::IOUtils::State,mozilla::StaticMutexNameless>::AutoLockBase<mozilla::IOUtils::State>&) const",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WithPromiseAndState(mozilla::dom::GlobalObject&, mozilla::ErrorResult&, mozilla::IOUtils::WriteJSON::<lambda_7>)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "(unresolved)",
+            ""
+          ],
+          [
+            "write SessionWriter.sys.mjs:69",
+            ""
+          ],
+          [
+            "",
+            ""
+          ],
+          [
+            "XREMain::XRE_main",
+            ""
+          ]
+        ],
+        "totalMs": 31536266,
+        "totalCount": 57991,
+        "ms": [
+          141776,
+          766325,
+          618314,
+          737840,
+          509740,
+          495579,
+          730964,
+          556730,
+          1672573,
+          1007178,
+          397486,
+          889509,
+          586365,
+          597748,
+          534368,
+          695792,
+          717963,
+          436760,
+          710236,
+          672838,
+          659890,
+          454094,
+          913788,
+          567787,
+          542007,
+          963230,
+          1023944,
+          333122,
+          939805,
+          591965,
+          726944,
+          648419,
+          429159,
+          841990,
+          1402650,
+          358813,
+          2606597,
+          425742,
+          1703169,
+          501728,
+          379881,
+          751925,
+          293533,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "count": [
+          339,
+          1662,
+          943,
+          1303,
+          908,
+          1276,
+          1488,
+          1175,
+          1865,
+          1984,
+          879,
+          1792,
+          1451,
+          1412,
+          1269,
+          1430,
+          1625,
+          952,
+          1514,
+          1638,
+          1626,
+          1038,
+          2010,
+          996,
+          1093,
+          1757,
+          1548,
+          844,
+          1523,
+          1458,
+          1570,
+          1393,
+          949,
+          1297,
+          2598,
+          802,
+          2462,
+          980,
+          1402,
+          1091,
+          907,
+          1280,
+          462,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "frames": [
+          [
+            "InfallibleQuoteJSONString(mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<char16_t>)",
+            "xul"
+          ],
+          [
+            "QuoteJSONStringHelper(JSLinearString const&, js::StringBuilder&, unsigned long long)",
+            "xul"
+          ],
+          [
+            "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+            "xul"
+          ],
+          [
+            "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+            "xul"
+          ],
+          [
+            "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+            "xul"
+          ],
+          [
+            "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+            "xul"
+          ],
+          [
+            "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject *>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long long)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON::<lambda_7>::operator()(mozilla::dom::Promise*, mozilla::DataMutexBase<mozilla::IOUtils::State,mozilla::StaticMutexNameless>::AutoLockBase<mozilla::IOUtils::State>&) const",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WithPromiseAndState(mozilla::dom::GlobalObject&, mozilla::ErrorResult&, mozilla::IOUtils::WriteJSON::<lambda_7>)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "CallJSNative(JSContext*, bool (*)(JSContext*, unsigned int, JS::Value*), js::CallReason, JS::CallArgs const&, bool)",
+            "xul"
+          ],
+          [
+            "js::InternalCallOrConstruct(JSContext*, JS::CallArgs const&, js::MaybeConstruct, js::CallReason)",
+            "xul"
+          ],
+          [
+            "InternalCall(JSContext*, js::AnyInvokeArgs const&, js::CallReason)",
+            "xul"
+          ],
+          [
+            "js::CallFromStack(JSContext*, JS::CallArgs const&, js::CallReason)",
+            "xul"
+          ],
+          [
+            "js::Interpret(JSContext*, js::RunState&)",
+            "xul"
+          ],
+          [
+            "MaybeEnterInterpreterTrampoline(JSContext*, js::RunState&)",
+            "xul"
+          ],
+          [
+            "js::RunScript(JSContext*, js::RunState&)",
+            "xul"
+          ],
+          [
+            "js::ResumeGenerator(JSContext*, JS::Handle<js::AbstractGeneratorObject *>, JS::Handle<JS::Value>, js::GeneratorResumeKind, JS::MutableHandle<JS::Value>)",
+            "xul"
+          ],
+          [
+            "write browser/components/sessionstore/SessionWriter.sys.mjs:167",
+            ""
+          ],
+          [
+            "AsyncFunctionResume(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject *>, ResumeKind, JS::Handle<JS::Value>)",
+            "xul"
+          ],
+          [
+            "js::AsyncFunctionAwaitedFulfilled(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject *>, JS::Handle<JS::Value>)",
+            "xul"
+          ],
+          [
+            "AsyncFunctionPromiseReactionJob(JSContext*, JS::RootedField<PromiseReactionRecord *,1> const&)",
+            "xul"
+          ],
+          [
+            "RunPromiseReactionJob(JSContext*, JS::RootedField<PromiseReactionRecord *,1> const&)",
+            "xul"
+          ],
+          [
+            "PromiseReactionJob(JSContext*, JS::Handle<JSObject *>)",
+            "xul"
+          ],
+          [
+            "JS::JSMicroTaskRef::run(JSContext*)",
+            "xul"
+          ],
+          [
+            "JS::RunJSMicroTask(JSContext*, JS::Handle<mozilla::Maybe<JS::MicroTask> >)",
+            "xul"
+          ],
+          [
+            "mozilla::RunAndConsumeJSMicroTask(JSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>)",
+            "xul"
+          ],
+          [
+            "mozilla::RunJSMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+            "xul"
+          ],
+          [
+            "mozilla::RunMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+            "xul"
+          ],
+          [
+            "",
+            ""
+          ],
+          [
+            "mozilla::CycleCollectedJSContext::PerformMicroTaskCheckPoint(bool)",
+            "xul"
+          ],
+          [
+            "mozilla::CycleCollectedJSContext::LeaveMicroTask()",
+            "xul"
+          ],
+          [
+            "mozilla::dom::CallSetup::~CallSetup()",
+            "xul"
+          ],
+          [
+            "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, mozilla::ErrorResult&, char const*, mozilla::dom::CallbackObjectBase::ExceptionHandling, JS::Realm*)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, char const*)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::(anonymous namespace)::IdleDispatchRunnable::Run()",
+            "xul"
+          ],
+          [
+            "RefPtr<nsIRunnable>::assign_assuming_AddRef(nsIRunnable*)",
+            "xul"
+          ],
+          [
+            "RefPtr<nsIRunnable>::operator=(void*)",
+            "xul"
+          ],
+          [
+            "mozilla::RunnableTask::Run()",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::RunTask(mozilla::Task*)",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::DoExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex &> const&)",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::ExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex &> const&)",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::ProcessPendingMTTask(bool)",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::TaskController::<lambda_5>::operator()() const",
+            "xul"
+          ],
+          [
+            "mozilla::detail::RunnableFunction<`lambda at .\\..\\..\\..\\..\\checkouts\\gecko\\xpcom\\threads\\TaskController.cpp:380:7'>::Run()",
+            "xul"
+          ]
+        ],
+        "totalMs": 30467238,
+        "totalCount": 60315,
+        "ms": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          4068543,
+          3604336,
+          5709623,
+          3533587,
+          5400252,
+          4160169,
+          3990728
+        ],
+        "count": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          8289,
+          8127,
+          9624,
+          7315,
+          10328,
+          8460,
+          8172
+        ]
+      },
+      {
+        "frames": [
+          [
+            "InfallibleQuoteJSONString(mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<char16_t>)",
+            "xul"
+          ],
+          [
+            "QuoteJSONStringHelper(JSLinearString const&, js::StringBuilder&, unsigned long long)",
+            "xul"
+          ],
+          [
+            "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+            "xul"
+          ],
+          [
+            "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+            "xul"
+          ],
+          [
+            "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+            "xul"
+          ],
+          [
+            "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+            "xul"
+          ],
+          [
+            "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject *>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long long)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON::<lambda_7>::operator()(mozilla::dom::Promise*, mozilla::DataMutexBase<mozilla::IOUtils::State,mozilla::StaticMutexNameless>::AutoLockBase<mozilla::IOUtils::State>&) const",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WithPromiseAndState(mozilla::dom::GlobalObject&, mozilla::ErrorResult&, mozilla::IOUtils::WriteJSON::<lambda_7>)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "(unresolved)",
+            ""
+          ],
+          [
+            "write SessionWriter.sys.mjs:167",
+            ""
+          ],
+          [
+            "",
+            ""
+          ],
+          [
+            "XREMain::XRE_main",
+            ""
+          ]
+        ],
+        "totalMs": 21891760,
+        "totalCount": 35684,
+        "ms": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          800685,
+          905769,
+          1129211,
+          992299,
+          1805599,
+          947237,
+          162313,
+          144584,
+          115481,
+          840506,
+          1351643,
+          1573197,
+          3430426,
+          1278066,
+          1211711,
+          null,
+          1107421,
+          1216979,
+          1757540,
+          1121093,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "count": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1459,
+          1278,
+          1597,
+          1873,
+          2301,
+          1466,
+          321,
+          252,
+          296,
+          1505,
+          2114,
+          2040,
+          3861,
+          2580,
+          2534,
+          null,
+          2029,
+          3346,
+          2594,
+          2238,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "frames": [
+          [
+            "InfallibleQuoteJSONString(mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<char16_t>)",
+            "xul"
+          ],
+          [
+            "QuoteJSONStringHelper(JSLinearString const&, js::StringBuilder&, unsigned long long)",
+            "xul"
+          ],
+          [
+            "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+            "xul"
+          ],
+          [
+            "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+            "xul"
+          ],
+          [
+            "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+            "xul"
+          ],
+          [
+            "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+            "xul"
+          ],
+          [
+            "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject *>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long long)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON::<lambda_7>::operator()(mozilla::dom::Promise*, mozilla::DataMutexBase<mozilla::IOUtils::State,mozilla::StaticMutexNameless>::AutoLockBase<mozilla::IOUtils::State>&) const",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WithPromiseAndState(mozilla::dom::GlobalObject&, mozilla::ErrorResult&, mozilla::IOUtils::WriteJSON::<lambda_7>)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "CallJSNative(JSContext*, bool (*)(JSContext*, unsigned int, JS::Value*), js::CallReason, JS::CallArgs const&, bool)",
+            "xul"
+          ],
+          [
+            "js::InternalCallOrConstruct(JSContext*, JS::CallArgs const&, js::MaybeConstruct, js::CallReason)",
+            "xul"
+          ],
+          [
+            "InternalCall(JSContext*, js::AnyInvokeArgs const&, js::CallReason)",
+            "xul"
+          ],
+          [
+            "js::CallFromStack(JSContext*, JS::CallArgs const&, js::CallReason)",
+            "xul"
+          ],
+          [
+            "js::Interpret(JSContext*, js::RunState&)",
+            "xul"
+          ],
+          [
+            "MaybeEnterInterpreterTrampoline(JSContext*, js::RunState&)",
+            "xul"
+          ],
+          [
+            "js::RunScript(JSContext*, js::RunState&)",
+            "xul"
+          ],
+          [
+            "js::ResumeGenerator(JSContext*, JS::Handle<js::AbstractGeneratorObject *>, JS::Handle<JS::Value>, js::GeneratorResumeKind, JS::MutableHandle<JS::Value>)",
+            "xul"
+          ],
+          [
+            "write SessionWriter.sys.mjs:167",
+            ""
+          ],
+          [
+            "AsyncFunctionResume(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject *>, ResumeKind, JS::Handle<JS::Value>)",
+            "xul"
+          ],
+          [
+            "js::AsyncFunctionAwaitedFulfilled(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject *>, JS::Handle<JS::Value>)",
+            "xul"
+          ],
+          [
+            "AsyncFunctionPromiseReactionJob(JSContext*, JS::RootedField<PromiseReactionRecord *,1> const&)",
+            "xul"
+          ],
+          [
+            "RunPromiseReactionJob(JSContext*, JS::RootedField<PromiseReactionRecord *,1> const&)",
+            "xul"
+          ],
+          [
+            "PromiseReactionJob(JSContext*, JS::Handle<JSObject *>)",
+            "xul"
+          ],
+          [
+            "JS::JSMicroTaskRef::run(JSContext*)",
+            "xul"
+          ],
+          [
+            "JS::RunJSMicroTask(JSContext*, JS::Handle<mozilla::Maybe<JS::MicroTask> >)",
+            "xul"
+          ],
+          [
+            "mozilla::RunAndConsumeJSMicroTask(JSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>)",
+            "xul"
+          ],
+          [
+            "mozilla::RunJSMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+            "xul"
+          ],
+          [
+            "mozilla::RunMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+            "xul"
+          ],
+          [
+            "",
+            ""
+          ],
+          [
+            "mozilla::CycleCollectedJSContext::PerformMicroTaskCheckPoint(bool)",
+            "xul"
+          ],
+          [
+            "mozilla::CycleCollectedJSContext::LeaveMicroTask()",
+            "xul"
+          ],
+          [
+            "mozilla::dom::CallSetup::~CallSetup()",
+            "xul"
+          ],
+          [
+            "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, mozilla::ErrorResult&, char const*, mozilla::dom::CallbackObjectBase::ExceptionHandling, JS::Realm*)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, char const*)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::(anonymous namespace)::IdleDispatchRunnable::Run()",
+            "xul"
+          ],
+          [
+            "RefPtr<nsIRunnable>::assign_assuming_AddRef(nsIRunnable*)",
+            "xul"
+          ],
+          [
+            "RefPtr<nsIRunnable>::operator=(void*)",
+            "xul"
+          ],
+          [
+            "mozilla::RunnableTask::Run()",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::RunTask(mozilla::Task*)",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::DoExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex &> const&)",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::ExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex &> const&)",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::ProcessPendingMTTask(bool)",
+            "xul"
+          ],
+          [
+            "mozilla::TaskController::TaskController::<lambda_5>::operator()() const",
+            "xul"
+          ],
+          [
+            "mozilla::detail::RunnableFunction<`lambda at .\\..\\..\\..\\..\\checkouts\\gecko\\xpcom\\threads\\TaskController.cpp:380:7'>::Run()",
+            "xul"
+          ]
+        ],
+        "totalMs": 9450333,
+        "totalCount": 19110,
+        "ms": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          5215525,
+          4234808,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "count": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          9295,
+          9815,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "frames": [
+          [
+            "InfallibleQuoteJSONString(mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<char16_t>)",
+            "xul"
+          ],
+          [
+            "QuoteJSONStringHelper(JSLinearString const&, js::StringBuilder&, unsigned long long)",
+            "xul"
+          ],
+          [
+            "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+            "xul"
+          ],
+          [
+            "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+            "xul"
+          ],
+          [
+            "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+            "xul"
+          ],
+          [
+            "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+            "xul"
+          ],
+          [
+            "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject *>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long long)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON::<lambda_7>::operator()(mozilla::dom::Promise*, mozilla::DataMutexBase<mozilla::IOUtils::State,mozilla::StaticMutexNameless>::AutoLockBase<mozilla::IOUtils::State>&) const",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WithPromiseAndState(mozilla::dom::GlobalObject&, mozilla::ErrorResult&, mozilla::IOUtils::WriteJSON::<lambda_7>)",
+            "xul"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+            "xul"
+          ],
+          [
+            "(unresolved)",
+            ""
+          ],
+          [
+            "write SessionWriter.sys.mjs:137",
+            ""
+          ],
+          [
+            "",
+            ""
+          ],
+          [
+            "XREMain::XRE_main",
+            ""
+          ]
+        ],
+        "totalMs": 8337066,
+        "totalCount": 11390,
+        "ms": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          628167,
+          678021,
+          1848621,
+          694555,
+          1303295,
+          1176609,
+          1048032,
+          676181,
+          283585,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "count": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          882,
+          1298,
+          1898,
+          999,
+          1693,
+          1120,
+          1750,
+          1231,
+          519,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "frames": [
+          [
+            "InfallibleQuoteJSONString<unsigned char, char16_t>(mozilla::RangedPtr<unsigned char const>, mozilla::RangedPtr<unsigned char const>, mozilla::RangedPtr<char16_t>)",
+            "libxul.so"
+          ],
+          [
+            "QuoteJSONStringHelper<unsigned char, char16_t>(JSLinearString const&, js::StringBuilder&, unsigned long)",
+            "libxul.so"
+          ],
+          [
+            "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+            "libxul.so"
+          ],
+          [
+            "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+            "libxul.so"
+          ],
+          [
+            "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+            "libxul.so"
+          ],
+          [
+            "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+            "libxul.so"
+          ],
+          [
+            "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject*>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)::$_0::operator()<mozilla::D",
+            "libxul.so"
+          ],
+          [
+            "mozilla::IOUtils::WithPromiseAndState<mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::Err",
+            "libxul.so"
+          ],
+          [
+            "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+            "libxul.so"
+          ],
+          [
+            "CallJSNative(JSContext*, bool (*)(JSContext*, unsigned int, JS::Value*), js::CallReason, JS::CallArgs const&, bool)",
+            "libxul.so"
+          ],
+          [
+            "js::InternalCallOrConstruct(JSContext*, JS::CallArgs const&, js::MaybeConstruct, js::CallReason)",
+            "libxul.so"
+          ],
+          [
+            "InternalCall(JSContext*, js::AnyInvokeArgs const&, js::CallReason)",
+            "libxul.so"
+          ],
+          [
+            "js::CallFromStack(JSContext*, JS::CallArgs const&, js::CallReason)",
+            "libxul.so"
+          ],
+          [
+            "js::Interpret(JSContext*, js::RunState&)",
+            "libxul.so"
+          ],
+          [
+            "js::RunScript(JSContext*, js::RunState&)",
+            "libxul.so"
+          ],
+          [
+            "js::ResumeGenerator(JSContext*, JS::Handle<js::AbstractGeneratorObject*>, JS::Handle<JS::Value>, js::GeneratorResumeKind, JS::MutableHandle<JS::Value>)",
+            "libxul.so"
+          ],
+          [
+            "write browser/components/sessionstore/SessionWriter.sys.mjs:167",
+            ""
+          ],
+          [
+            "AsyncFunctionResume(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject*>, ResumeKind, JS::Handle<JS::Value>)",
+            "libxul.so"
+          ],
+          [
+            "js::AsyncFunctionAwaitedFulfilled(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject*>, JS::Handle<JS::Value>)",
+            "libxul.so"
+          ],
+          [
+            "AsyncFunctionPromiseReactionJob<JS::RootedField<PromiseReactionRecord*, (unsigned long)1> >(JSContext*, JS::RootedField<PromiseReactionRecord*, (unsigned long)1> const&)",
+            "libxul.so"
+          ],
+          [
+            "RunPromiseReactionJob<JS::RootedField<PromiseReactionRecord*, (unsigned long)1> >(JSContext*, JS::RootedField<PromiseReactionRecord*, (unsigned long)1> const&)",
+            "libxul.so"
+          ],
+          [
+            "PromiseReactionJob(JSContext*, JS::Handle<JSObject*>)",
+            "libxul.so"
+          ],
+          [
+            "JS::JSMicroTaskRef::run(JSContext*) &&",
+            "libxul.so"
+          ],
+          [
+            "JS::RunJSMicroTask(JSContext*, JS::Handle<mozilla::Maybe<JS::MicroTask> >)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::RunAndConsumeJSMicroTask(JSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::RunJSMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::RunMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+            "libxul.so"
+          ],
+          [
+            "",
+            ""
+          ],
+          [
+            "mozilla::CycleCollectedJSContext::PerformMicroTaskCheckPoint(bool)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::CycleCollectedJSContext::LeaveMicroTask()",
+            "libxul.so"
+          ],
+          [
+            "mozilla::dom::CallSetup::~CallSetup()",
+            "libxul.so"
+          ],
+          [
+            "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, mozilla::ErrorResult&, char const*, mozilla::dom::CallbackObjectBase::ExceptionHandling, JS::Realm*)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, char const*)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::dom::(anonymous namespace)::IdleDispatchRunnable::Run()",
+            "libxul.so"
+          ],
+          [
+            "RefPtr<nsIRunnable>::assign_assuming_AddRef(nsIRunnable*)",
+            "libxul.so"
+          ],
+          [
+            "RefPtr<nsIRunnable>::operator=(std::nullptr_t)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::RunnableTask::Run()",
+            "libxul.so"
+          ],
+          [
+            "mozilla::TaskController::RunTask(mozilla::Task*)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::TaskController::DoExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex&> const&)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::TaskController::ExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex&> const&)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::TaskController::ProcessPendingMTTask(bool)",
+            "libxul.so"
+          ],
+          [
+            "mozilla::TaskController::TaskController()::$_0::operator()() const",
+            "libxul.so"
+          ],
+          [
+            "mozilla::detail::RunnableFunction<mozilla::TaskController::TaskController()::$_0>::Run()",
+            "libxul.so"
+          ]
+        ],
+        "totalMs": 7829705,
+        "totalCount": 12222,
+        "ms": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          308323,
+          1548675,
+          1071585,
+          1849702,
+          1413278,
+          1053801,
+          584341
+        ],
+        "count": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          425,
+          2328,
+          1554,
+          3155,
+          2600,
+          1353,
+          807
+        ]
+      }
+    ]
+  },
+  "profiles": [
+    {
+      "date": "20261029",
+      "funcNames": [
+        "InfallibleQuoteJSONString(mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<char16_t>)",
+        "QuoteJSONStringHelper(JSLinearString const&, js::StringBuilder&, unsigned long long)",
+        "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+        "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+        "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+        "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+        "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject *>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long long)",
+        "mozilla::IOUtils::WriteJSON::<lambda_7>::operator()(mozilla::dom::Promise*, mozilla::DataMutexBase<mozilla::IOUtils::State,mozilla::StaticMutexNameless>::AutoLockBase<mozilla::IOUtils::State>&) const",
+        "mozilla::IOUtils::WithPromiseAndState(mozilla::dom::GlobalObject&, mozilla::ErrorResult&, mozilla::IOUtils::WriteJSON::<lambda_7>)",
+        "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+        "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+        "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+        "CallJSNative(JSContext*, bool (*)(JSContext*, unsigned int, JS::Value*), js::CallReason, JS::CallArgs const&, bool)",
+        "js::InternalCallOrConstruct(JSContext*, JS::CallArgs const&, js::MaybeConstruct, js::CallReason)",
+        "InternalCall(JSContext*, js::AnyInvokeArgs const&, js::CallReason)",
+        "js::CallFromStack(JSContext*, JS::CallArgs const&, js::CallReason)",
+        "js::Interpret(JSContext*, js::RunState&)",
+        "MaybeEnterInterpreterTrampoline(JSContext*, js::RunState&)",
+        "js::RunScript(JSContext*, js::RunState&)",
+        "js::ResumeGenerator(JSContext*, JS::Handle<js::AbstractGeneratorObject *>, JS::Handle<JS::Value>, js::GeneratorResumeKind, JS::MutableHandle<JS::Value>)",
+        "write SessionWriter.sys.mjs:167",
+        "AsyncFunctionResume(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject *>, ResumeKind, JS::Handle<JS::Value>)",
+        "js::AsyncFunctionAwaitedFulfilled(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject *>, JS::Handle<JS::Value>)",
+        "AsyncFunctionPromiseReactionJob(JSContext*, JS::RootedField<PromiseReactionRecord *,1> const&)",
+        "RunPromiseReactionJob(JSContext*, JS::RootedField<PromiseReactionRecord *,1> const&)",
+        "PromiseReactionJob(JSContext*, JS::Handle<JSObject *>)",
+        "JS::JSMicroTaskRef::run(JSContext*)",
+        "JS::RunJSMicroTask(JSContext*, JS::Handle<mozilla::Maybe<JS::MicroTask> >)",
+        "mozilla::RunAndConsumeJSMicroTask(JSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>)",
+        "mozilla::RunJSMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+        "mozilla::RunMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+        "",
+        "mozilla::CycleCollectedJSContext::PerformMicroTaskCheckPoint(bool)",
+        "mozilla::CycleCollectedJSContext::LeaveMicroTask()",
+        "mozilla::dom::CallSetup::~CallSetup()",
+        "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, mozilla::ErrorResult&, char const*, mozilla::dom::CallbackObjectBase::ExceptionHandling, JS::Realm*)",
+        "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, char const*)",
+        "mozilla::dom::(anonymous namespace)::IdleDispatchRunnable::Run()",
+        "RefPtr<nsIRunnable>::assign_assuming_AddRef(nsIRunnable*)",
+        "RefPtr<nsIRunnable>::operator=(void*)",
+        "mozilla::RunnableTask::Run()",
+        "mozilla::TaskController::RunTask(mozilla::Task*)",
+        "mozilla::TaskController::DoExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex &> const&)",
+        "mozilla::TaskController::ExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex &> const&)",
+        "mozilla::TaskController::ProcessPendingMTTask(bool)",
+        "mozilla::TaskController::TaskController::<lambda_5>::operator()() const",
+        "mozilla::detail::RunnableFunction<`lambda at .\\..\\..\\..\\..\\checkouts\\gecko\\xpcom\\threads\\TaskController.cpp:380:7'>::Run()",
+        "InfallibleQuoteJSONString(mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<char16_t>)",
+        "QuoteJSONStringHelper(JSLinearString const&, js::StringBuilder&, unsigned long long)",
+        "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+        "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+        "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+        "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+        "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject *>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long long)",
+        "mozilla::IOUtils::WriteJSON::<lambda_7>::operator()(mozilla::dom::Promise*, mozilla::DataMutexBase<mozilla::IOUtils::State,mozilla::StaticMutexNameless>::AutoLockBase<mozilla::IOUtils::State>&) const",
+        "mozilla::IOUtils::WithPromiseAndState(mozilla::dom::GlobalObject&, mozilla::ErrorResult&, mozilla::IOUtils::WriteJSON::<lambda_7>)",
+        "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+        "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+        "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+        "(unresolved)",
+        "write SessionWriter.sys.mjs:167",
+        "",
+        "XREMain::XRE_main"
+      ],
+      "libNames": [
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "signatures": [
+        {
+          "id": "bug:1849393",
+          "stackKey": "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46",
+          "memberStackKeys": [
+            "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46",
+            "47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62"
+          ],
+          "memberStackMs": [
+            4234808,
+            1121093
+          ],
+          "memberStackCounts": [
+            9815,
+            2238
+          ],
+          "duration": 5355901,
+          "count": 12053,
+          "knownBug": {
+            "id": 1849393,
+            "status": "NEW",
+            "summary": "SessionWriter IOUtils.writeJSON serialization",
+            "signatures": [
+              "[bhr:SessionWriter]",
+              "[bhr:IOUtils_Binding::writeJSON]"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "date": "20261105",
+      "funcNames": [
+        "InfallibleQuoteJSONString(mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<const unsigned char>, mozilla::RangedPtr<char16_t>)",
+        "QuoteJSONStringHelper(JSLinearString const&, js::StringBuilder&, unsigned long long)",
+        "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+        "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+        "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+        "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+        "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject *>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long long)",
+        "mozilla::IOUtils::WriteJSON::<lambda_7>::operator()(mozilla::dom::Promise*, mozilla::DataMutexBase<mozilla::IOUtils::State,mozilla::StaticMutexNameless>::AutoLockBase<mozilla::IOUtils::State>&) const",
+        "mozilla::IOUtils::WithPromiseAndState(mozilla::dom::GlobalObject&, mozilla::ErrorResult&, mozilla::IOUtils::WriteJSON::<lambda_7>)",
+        "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+        "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+        "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+        "CallJSNative(JSContext*, bool (*)(JSContext*, unsigned int, JS::Value*), js::CallReason, JS::CallArgs const&, bool)",
+        "js::InternalCallOrConstruct(JSContext*, JS::CallArgs const&, js::MaybeConstruct, js::CallReason)",
+        "InternalCall(JSContext*, js::AnyInvokeArgs const&, js::CallReason)",
+        "js::CallFromStack(JSContext*, JS::CallArgs const&, js::CallReason)",
+        "js::Interpret(JSContext*, js::RunState&)",
+        "MaybeEnterInterpreterTrampoline(JSContext*, js::RunState&)",
+        "js::RunScript(JSContext*, js::RunState&)",
+        "js::ResumeGenerator(JSContext*, JS::Handle<js::AbstractGeneratorObject *>, JS::Handle<JS::Value>, js::GeneratorResumeKind, JS::MutableHandle<JS::Value>)",
+        "write browser/components/sessionstore/SessionWriter.sys.mjs:167",
+        "AsyncFunctionResume(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject *>, ResumeKind, JS::Handle<JS::Value>)",
+        "js::AsyncFunctionAwaitedFulfilled(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject *>, JS::Handle<JS::Value>)",
+        "AsyncFunctionPromiseReactionJob(JSContext*, JS::RootedField<PromiseReactionRecord *,1> const&)",
+        "RunPromiseReactionJob(JSContext*, JS::RootedField<PromiseReactionRecord *,1> const&)",
+        "PromiseReactionJob(JSContext*, JS::Handle<JSObject *>)",
+        "JS::JSMicroTaskRef::run(JSContext*)",
+        "JS::RunJSMicroTask(JSContext*, JS::Handle<mozilla::Maybe<JS::MicroTask> >)",
+        "mozilla::RunAndConsumeJSMicroTask(JSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>)",
+        "mozilla::RunJSMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+        "mozilla::RunMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+        "",
+        "mozilla::CycleCollectedJSContext::PerformMicroTaskCheckPoint(bool)",
+        "mozilla::CycleCollectedJSContext::LeaveMicroTask()",
+        "mozilla::dom::CallSetup::~CallSetup()",
+        "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, mozilla::ErrorResult&, char const*, mozilla::dom::CallbackObjectBase::ExceptionHandling, JS::Realm*)",
+        "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, char const*)",
+        "mozilla::dom::(anonymous namespace)::IdleDispatchRunnable::Run()",
+        "RefPtr<nsIRunnable>::assign_assuming_AddRef(nsIRunnable*)",
+        "RefPtr<nsIRunnable>::operator=(void*)",
+        "mozilla::RunnableTask::Run()",
+        "mozilla::TaskController::RunTask(mozilla::Task*)",
+        "mozilla::TaskController::DoExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex &> const&)",
+        "mozilla::TaskController::ExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex &> const&)",
+        "mozilla::TaskController::ProcessPendingMTTask(bool)",
+        "mozilla::TaskController::TaskController::<lambda_5>::operator()() const",
+        "mozilla::detail::RunnableFunction<`lambda at .\\..\\..\\..\\..\\checkouts\\gecko\\xpcom\\threads\\TaskController.cpp:380:7'>::Run()",
+        "InfallibleQuoteJSONString<unsigned char, char16_t>(mozilla::RangedPtr<unsigned char const>, mozilla::RangedPtr<unsigned char const>, mozilla::RangedPtr<char16_t>)",
+        "QuoteJSONStringHelper<unsigned char, char16_t>(JSLinearString const&, js::StringBuilder&, unsigned long)",
+        "QuoteJSONString(JSContext*, js::StringBuilder&, JSString*)",
+        "EmitSimpleValue(JSContext*, js::StringBuilder&, JS::Value const&)",
+        "FastSerializeJSONProperty(JSContext*, JS::Handle<JS::Value>, (anonymous namespace)::StringifyContext*, BailReason*)",
+        "js::Stringify(JSContext*, JS::MutableHandle<JS::Value>, JSObject*, JS::Value const&, js::StringBuilder&, js::StringifyBehavior)",
+        "JS_StringifyWithLengthHint(JSContext*, JS::MutableHandle<JS::Value>, JS::Handle<JSObject*>, JS::Handle<JS::Value>, bool (*)(char16_t const*, unsigned int, void*), void*, unsigned long)",
+        "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)::$_0::operator()<mozilla::D",
+        "mozilla::IOUtils::WithPromiseAndState<mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::Err",
+        "mozilla::IOUtils::WriteJSON(mozilla::dom::GlobalObject&, nsTSubstring<char16_t> const&, JS::Handle<JS::Value>, mozilla::dom::WriteJSONOptions const&, mozilla::ErrorResult&)",
+        "mozilla::dom::IOUtils_Binding::writeJSON(JSContext*, unsigned int, JS::Value*)",
+        "mozilla::dom::StaticMethodPromiseWrapper(JSContext*, unsigned int, JS::Value*)",
+        "CallJSNative(JSContext*, bool (*)(JSContext*, unsigned int, JS::Value*), js::CallReason, JS::CallArgs const&, bool)",
+        "js::InternalCallOrConstruct(JSContext*, JS::CallArgs const&, js::MaybeConstruct, js::CallReason)",
+        "InternalCall(JSContext*, js::AnyInvokeArgs const&, js::CallReason)",
+        "js::CallFromStack(JSContext*, JS::CallArgs const&, js::CallReason)",
+        "js::Interpret(JSContext*, js::RunState&)",
+        "js::RunScript(JSContext*, js::RunState&)",
+        "js::ResumeGenerator(JSContext*, JS::Handle<js::AbstractGeneratorObject*>, JS::Handle<JS::Value>, js::GeneratorResumeKind, JS::MutableHandle<JS::Value>)",
+        "write browser/components/sessionstore/SessionWriter.sys.mjs:167",
+        "AsyncFunctionResume(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject*>, ResumeKind, JS::Handle<JS::Value>)",
+        "js::AsyncFunctionAwaitedFulfilled(JSContext*, JS::Handle<js::AsyncFunctionGeneratorObject*>, JS::Handle<JS::Value>)",
+        "AsyncFunctionPromiseReactionJob<JS::RootedField<PromiseReactionRecord*, (unsigned long)1> >(JSContext*, JS::RootedField<PromiseReactionRecord*, (unsigned long)1> const&)",
+        "RunPromiseReactionJob<JS::RootedField<PromiseReactionRecord*, (unsigned long)1> >(JSContext*, JS::RootedField<PromiseReactionRecord*, (unsigned long)1> const&)",
+        "PromiseReactionJob(JSContext*, JS::Handle<JSObject*>)",
+        "JS::JSMicroTaskRef::run(JSContext*) &&",
+        "JS::RunJSMicroTask(JSContext*, JS::Handle<mozilla::Maybe<JS::MicroTask> >)",
+        "mozilla::RunAndConsumeJSMicroTask(JSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>)",
+        "mozilla::RunJSMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+        "mozilla::RunMicroTask(JSContext*, mozilla::CycleCollectedJSContext*, JS::MutableHandle<mozilla::MustConsumeMicroTask>, bool)",
+        "",
+        "mozilla::CycleCollectedJSContext::PerformMicroTaskCheckPoint(bool)",
+        "mozilla::CycleCollectedJSContext::LeaveMicroTask()",
+        "mozilla::dom::CallSetup::~CallSetup()",
+        "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, mozilla::ErrorResult&, char const*, mozilla::dom::CallbackObjectBase::ExceptionHandling, JS::Realm*)",
+        "mozilla::dom::IdleRequestCallback::Call(mozilla::dom::IdleDeadline&, char const*)",
+        "mozilla::dom::(anonymous namespace)::IdleDispatchRunnable::Run()",
+        "RefPtr<nsIRunnable>::assign_assuming_AddRef(nsIRunnable*)",
+        "RefPtr<nsIRunnable>::operator=(std::nullptr_t)",
+        "mozilla::RunnableTask::Run()",
+        "mozilla::TaskController::RunTask(mozilla::Task*)",
+        "mozilla::TaskController::DoExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex&> const&)",
+        "mozilla::TaskController::ExecuteNextTaskOnlyMainThreadInternal(mozilla::detail::BaseAutoLock<mozilla::Mutex&> const&)",
+        "mozilla::TaskController::ProcessPendingMTTask(bool)",
+        "mozilla::TaskController::TaskController()::$_0::operator()() const",
+        "mozilla::detail::RunnableFunction<mozilla::TaskController::TaskController()::$_0>::Run()"
+      ],
+      "libNames": [
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "xul",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so",
+        "libxul.so"
+      ],
+      "signatures": [
+        {
+          "id": "bug:1849393",
+          "stackKey": "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46",
+          "memberStackKeys": [
+            "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46",
+            "47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92"
+          ],
+          "memberStackMs": [
+            3990728,
+            584341
+          ],
+          "memberStackCounts": [
+            8172,
+            807
+          ],
+          "duration": 4575069,
+          "count": 8979,
+          "knownBug": {
+            "id": 1849393,
+            "status": "NEW",
+            "summary": "SessionWriter IOUtils.writeJSON serialization",
+            "signatures": [
+              "[bhr:SessionWriter]",
+              "[bhr:IOUtils_Binding::writeJSON]"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
