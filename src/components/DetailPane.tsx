@@ -126,9 +126,9 @@ export function DetailPane({
     <div className="detail-pane" ref={paneRef}>
       <SectionNav paneRef={paneRef}>
         <button className="inspector-back" onClick={onBack}>← Back to hangs</button>
-        <CopyLink href={permalink} build={profile.date} />
       </SectionNav>
-      <HangSummary key={signature.id} signature={signature} frames={frames} onJump={setFlash} />
+      <HangSummary key={signature.id} signature={signature} frames={frames} onJump={setFlash}
+        action={<CopyLink href={permalink} build={profile.date} />} />
       {/* What the stack shows, then the stack: together they say what the hang
           is, and everything below is about how often and where it happens. */}
       <StackSection
